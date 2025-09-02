@@ -28,7 +28,7 @@ const Footer = () => {
               className="p-2 bg-gray-200 rounded-full hover:bg-sky-500 hover:text-white transition">
               <FaTwitter />
             </Link>
-            <Link href="https://www.instagram.com/d.v.l_architects_?igsh=ZDQ5aGxzMG1wdTFx&utm_source=qr" target="_blank" rel="noopener noreferrer"
+            <Link to="https://www.instagram.com/d.v.l_architects_?igsh=ZDQ5aGxzMG1wdTFx&utm_source=qr"  target="_blank" rel="noopener noreferrer"
               className="p-2 bg-gray-200 rounded-full hover:bg-pink-500 hover:text-white transition">
               <FaInstagram />
             </Link>

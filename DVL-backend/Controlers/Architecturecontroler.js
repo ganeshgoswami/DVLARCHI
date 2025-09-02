@@ -1,4 +1,5 @@
 const { Architecturelist } = require("../modals/Architecturemodal");
+const cloudinary = require('../Config/cloudinary');
 
 exports.getArchitectures = async (req, res) => {
   try {
@@ -12,10 +13,7 @@ exports.getArchitectures = async (req, res) => {
 
 exports.architecturedata = async (req, res) => {
   try {
-    const { formType, category, address, desc, Area, status } = req.body;
-
-    // If multiple images are uploaded, req.files will be an array
-    const images = req.files ? req.files.map((file) => file.filename) : [];
+    const { formType, category, address, desc, Area, status, images } = req.body;
 
     const newData = new Architecturelist({
       formType,
@@ -24,7 +22,7 @@ exports.architecturedata = async (req, res) => {
       desc,
       Area,
       status,
-      images, // store as array in MongoDB
+      images, // 👈 already Cloudinary URLs
     });
 
     await newData.save();
@@ -36,7 +34,7 @@ exports.architecturedata = async (req, res) => {
     console.error("Error adding architecture data:", error);
     res.status(500).json({
       message: "Failed to add architecture data",
-      error,
+      error: error.message,
     });
   }
 };
@@ -62,10 +60,18 @@ exports.updateArchitecture = async (req, res) => {
       return res.status(404).json({ message: "Data not found" });
     }
 
-    // Replace old images with new images if uploaded
-    let updatedImages = [];
-    if (req.files && req.files.length > 0) {
-      updatedImages = req.files.map((file) => file.filename); // new images only
+    // Handle images - use Cloudinary URLs if new images uploaded, otherwise keep existing
+    let updatedImages = existingData.images; // Keep existing images by default
+    
+    if (req.body.images && req.body.images.length > 0) {
+      // If images are passed in body (Cloudinary URLs)
+      updatedImages = Array.isArray(req.body.images) ? req.body.images : [req.body.images];
+    } else if (req.files && req.files.length > 0) {
+      // If files are uploaded, create Cloudinary URLs
+      updatedImages = req.files.map((file) => {
+        // Assuming Cloudinary middleware sets the secure_url
+        return file.path || `https://res.cloudinary.com/your-cloud-name/image/upload/${file.filename}`;
+      });
     }
 
     // Prepare updated fields
@@ -84,7 +90,12 @@ exports.updateArchitecture = async (req, res) => {
       updatedFields,
       { new: true }
     );
-    res.status(200).json(updated);
+    
+    console.log('Updated architecture data:', updated);
+    res.status(200).json({
+      message: "Architecture updated successfully",
+      data: updated
+    });
   } catch (err) {
     console.error("Update error:", err);
     res.status(500).json({ message: "Update failed", error: err.message });
