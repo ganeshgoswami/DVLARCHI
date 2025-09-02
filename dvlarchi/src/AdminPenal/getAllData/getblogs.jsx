@@ -11,6 +11,7 @@ const GetBlogs = () => {
     description: "",
     image: null,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -58,6 +59,7 @@ const GetBlogs = () => {
   };
 
   const handleUpdate = async () => {
+    setIsLoading(true);
     try {
       const updatedData = new FormData();
       updatedData.append("description", formData.description);
@@ -67,12 +69,23 @@ const GetBlogs = () => {
 
       await axios.patch(
         `http://localhost:5000/updateBlog/${editingItem._id}`,
-        updatedData
+        updatedData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
+      
       setShowModal(false);
+      setFormData({
+        description: "",
+        image: null,
+      });
       fetchData();
     } catch (err) {
       console.error("Update error:", err);
+      alert("Error updating blog. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -126,7 +139,7 @@ const GetBlogs = () => {
                 <td>
                   <img
                     className="img-table"
-                    src={`http://localhost:5000${item.image}`}
+                    src={item.image}
                     alt="interior"
                     width="60"
                     height="60"
@@ -188,8 +201,19 @@ const GetBlogs = () => {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Save
+          <Button 
+            variant="primary" 
+            onClick={handleUpdate}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Saving...
+              </>
+            ) : (
+              "Save"
+            )}
           </Button>
         </Modal.Footer>
       </Modal>

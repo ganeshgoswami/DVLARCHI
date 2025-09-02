@@ -39,11 +39,11 @@ console.log(data)
       {data.length === 0 ? (
         <p>No items found in this Architecture Type.</p>
       ) : (
-        <div className="card-grid">
+        <div className="category-card">
           {data.map((item) => (
             <Link className="card text-decoration-none" to={`/image-gallery/${item._id}`}  key={item._id}>
               <img
-                src={`http://localhost:5000/images/uploads/${item.images[0]}`}
+                src={item.images[0]}
                 alt={item.category}
                 className="card-image"
               />

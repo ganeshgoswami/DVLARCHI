@@ -1,61 +1,63 @@
 import React, { useEffect, useState } from "react";
-import img1 from "../../architercter-img/building img 1.jpg";
-import img2 from "../../architercter-img/Interior 2.jpg";
-import img3 from "../../architercter-img/Construction1.jpg";
-import img4 from "../../architercter-img/Building img.jpg";
-import img5 from "../../architercter-img/pexels-marek-piwnicki-3907296-8991517.jpg";
-import img6 from "../../architercter-img/pexels-pixabay-262347.jpg";
-import img7 from "../../architercter-img/pexels-pixabay-271816.jpg";
-import img8 from "../../architercter-img/pexels-enginakyurt-2036686.jpg";
+
 import { Link } from "react-router-dom";
+
 
 const HomePage = () => {
   const cards = [
     {
       title: "Architecture",
-      img: img1,
+      img: "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756709814/architecture_desktop_1_f1fvas.jpg",
       textColor: "text-white",
     },
     {
       title: "Interior",
-      img: img2,
-      textColor: "text-primary",
+      img: "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756709785/interior_desktop_m8xm8d.jpg",
+      textColor: "text-white",
     },
 
     {
       title: "Warehouse",
-      img: img3,
-      textColor: "text-warning",
+      img: "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756714782/warehouse_t9ndkf.jpg",
+      textColor: "text-white",
     },
     {
       title: "Cafe",
-      img: img5,
-      textColor: "text-danger",
+      img: "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756714782/cafe_k6p35f.jpg",
+      textColor: "text-white",
     },
     {
       title: "Landscaping",
-      img: img6,
-      textColor: "text-warning-emphasis",
+      img: "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756714907/landscaping_ff7tbd.jpg",
+      textColor: "text-white",
     },
 
   ];
 
   const images = [
-    require("../../architercter-img/Interior 2.jpg"),
-    require("../../architercter-img/Interior 3.jpg"),
-    require("../../architercter-img/Interior 4.jpg"),
-    require("../../architercter-img/Interior 5.jpg"),
-    require("../../architercter-img/Interior 6.jpg"),
-    require("../../architercter-img/Interior 7.jpg"),
-    require("../../architercter-img/Interior 8.jpg"),
+    
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717315/Living_Dining_2_rt1if1.png",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717314/pawan_scene_2_psd_fkakyh.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717310/Living_Dining_1_dhspg7.png",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717309/Living_Dining_7_glbp9h.png",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717308/Living_Dining_3_rbzdeb.png",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717306/cabin_2_2_psd_tpioqi.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717303/cabin_1_scene_11_psd_gjh8aa.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717302/bedroom_1_scene_1_revise_psd_rlvh4i.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717298/pawan_room_scene_1_psd_lbhi0k.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717296/cabin_1_scene_2_psd_dfna79.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717296/bedroom_scene1_psd_xlvkfs.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717133/bedroom_2_scene_2_revise_psd_p7j2ts.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717133/Living_Dining_5_halrlx.png",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756717132/bedroom_1_psd_yhmo2u.jpg"
   ];
   const sketchesData = [
-    require("../../architercter-img/sketches2.jpg"),
-    require("../../architercter-img/sketches3.jpg"),
-    require("../../architercter-img/sketches4.jpg"),
-    require("../../architercter-img/sketches5.jpg"),
-    require("../../architercter-img/sketches6.jpg"),
-    require("../../architercter-img/sketches7.jpg"),
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723837/PhotoFunia-1756720146_mzl1k1.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723835/WhatsApp_Image_2025-09-01_at_3.31.15_PM_xkmccd.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723833/WhatsApp_Image_2025-09-01_at_3.31.15_PM_1_kcdndz.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723831/PhotoFunia-1756723753_xe34yt.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723831/WhatsApp_Image_2025-09-01_at_3.44.36_PM_cue1gr.jpg",
+    "https://res.cloudinary.com/dudc9k1bp/image/upload/v1756723830/WhatsApp_Image_2025-09-01_at_3.47.42_PM_srkg7e.jpg"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -68,7 +70,6 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  console.log(cards)
 
   return (
     <div className="container my-5">

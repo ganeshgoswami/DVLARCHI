@@ -35,7 +35,7 @@ const ImageGallery = () => {
               <div className="row mb-3" key={index}>
                 <div className="col-12">
                   <img
-                    src={`http://localhost:5000/images/uploads/${img}`}
+                    src={img}
                     alt={`img-${index}`}
                     className="img-fluid rounded"
                     style={{ width: "100%", height: "auto" }}

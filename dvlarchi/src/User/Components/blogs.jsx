@@ -27,7 +27,7 @@ console.log(blogs)
           <div className="row g-0 align-items-center">
             <div className="col-md-4 col-12">
               <img
-                src={`http://localhost:5000${blog.image}`}
+                src={blog.image}
                 className="img-fluid rounded-start"
                 alt={blog.title}
                 style={{ objectFit: "cover" }}

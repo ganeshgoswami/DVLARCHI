@@ -6,6 +6,7 @@ const AddBlogs = () => {
   description: "",
 });
 const [imageFile, setImageFile] = useState(null);
+const [isLoading, setIsLoading] = useState(false);
 
 // Text input change
 const handleChange = (e) => {
@@ -21,6 +22,7 @@ const handleImageChange = (e) => {
 // Submit form
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setIsLoading(true);
 
   const data = new FormData();
   data.append("description", formData.description);
@@ -44,6 +46,8 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error("Upload error:", error);
     alert("Upload failed");
+  } finally {
+    setIsLoading(false);
   }
 };
 
@@ -80,9 +84,21 @@ const handleSubmit = async (e) => {
             </div>
 
             {/* Submit */}
-            <button type="submit" className="btn btn-success btn-block">
-              Submit 
+            <button 
+              type="submit" 
+              className="btn btn-success btn-block"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
             </button>
+            
           </form>
         </div>
       </div>

@@ -13,8 +13,9 @@ const ViewArchitectureList = () => {
     Area: "",
     status: "",
     desc: "",
-    image: null,
+    images: null,
   });
+  const [isLoading, setIsLoading] = useState(false);
   console.log(architectureData);
 
   const categoryOptions = [
@@ -86,6 +87,7 @@ const ViewArchitectureList = () => {
   ];
 
   const handleUpdate = async () => {
+    setIsLoading(true);
     try {
       const updatedData = new FormData();
       updatedData.append("formType", formData.formType);
@@ -102,7 +104,7 @@ const ViewArchitectureList = () => {
         }
       }
 
-      await axios.patch(
+      const response = await axios.patch(
         `http://localhost:5000/updateArchitecturedata/${editingItem._id}`,
         updatedData,
         {
@@ -110,10 +112,23 @@ const ViewArchitectureList = () => {
         }
       );
 
+      console.log("Update successful:", response.data);
       setShowModal(false);
+      setFormData({
+        formType: "",
+        category: "",
+        address: "",
+        Area: "",
+        status: "",
+        desc: "",
+        images: null,
+      });
       fetchData(); // refresh list
     } catch (err) {
       console.error("Update error:", err);
+      alert("Error updating data. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -176,7 +191,7 @@ const ViewArchitectureList = () => {
           {item.images[0] ? (
             <img
             className="img-table"
-              src={`http://localhost:5000/images/uploads/${item.images[0]}`}
+              src={item.images[0]}
               alt="img"
               width="60"
               height="60"
@@ -318,7 +333,6 @@ const ViewArchitectureList = () => {
                 multiple
                 onChange={handleFormChange}
                 className="form-control"
-                required
               />
             </Form.Group>
           </Form>
@@ -327,8 +341,19 @@ const ViewArchitectureList = () => {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Save
+          <Button 
+            variant="primary" 
+            onClick={handleUpdate}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Saving...
+              </>
+            ) : (
+              "Save"
+            )}
           </Button>
         </Modal.Footer>
       </Modal>

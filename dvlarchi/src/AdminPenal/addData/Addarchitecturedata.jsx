@@ -3,6 +3,7 @@ import axios from "axios";
 
 const AddArchitectureData = () => {
   const [imageFiles, setImageFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     formType: "Architecture",
@@ -34,49 +35,46 @@ const AddArchitectureData = () => {
     setImageFiles(Array.from(e.target.files)); // Convert FileList to array
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true); // Start loading
 
-    const data = new FormData();
-    data.append("formType", formData.formType);
-    data.append("category", formData.category);
-    data.append("address", formData.address);
-    data.append("desc", formData.desc);
-    data.append("Area", formData.Area);
-    data.append("status", formData.status);
+  const data = new FormData();
+  data.append("formType", formData.formType);
+  data.append("category", formData.category);
+  data.append("address", formData.address);
+  data.append("desc", formData.desc);
+  data.append("Area", formData.Area);
+  data.append("status", formData.status);
 
-    // Append multiple images
-    // imageFiles.forEach((file) => {
-    //   data.append("images", file);
-    // });
-    imageFiles.forEach(file => {
-  data.append("images", file);
-});
+  imageFiles.forEach(file => {
+    data.append("images", file);
+  });
 
+  try {
+    await axios.post("http://localhost:5000/architecturedata", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    
+    alert("Architecture data uploaded successfully!");
 
-    try {
-      await axios.post("http://localhost:5000/architecturedata", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      
-
-      alert("Architecture data uploaded successfully!");
-
-      // Reset form
-      setFormData({
-        formType: "Architecture",
-        category: "",
-        address: "",
-        desc: "",
-        Area: "",
-        status: "",
-      });
-      setImageFiles([]);
-    } catch (error) {
-      console.error("Upload failed:", error);
-      alert("Upload failed");
-    }
-  };
+    // Reset form
+    setFormData({
+      formType: "Architecture",
+      category: "",
+      address: "",
+      desc: "",
+      Area: "",
+      status: "",
+    });
+    setImageFiles([]);
+  } catch (error) {
+    console.error("Upload failed:", error);
+    alert("Upload failed");
+  } finally {
+    setIsLoading(false); // Stop loading
+  }
+};
 
   const typeOfForm = [
     "Architecture",
@@ -203,10 +201,20 @@ const AddArchitectureData = () => {
               />
             </div>
 
-            {/* Submit */}
-            <button type="submit" className="btn btn-success btn-block">
-              Submit
-            </button>
+            <button 
+  type="submit" 
+  className="btn btn-success btn-block"
+  disabled={isLoading}
+>
+  {isLoading ? (
+    <>
+      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      Submitting...
+    </>
+  ) : (
+    "Submit"
+  )}
+</button>
           </form>
         </div>
       </div>
