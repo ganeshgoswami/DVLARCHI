@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/addblogs`, data, {
+    await axios.post(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/addblogs`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 

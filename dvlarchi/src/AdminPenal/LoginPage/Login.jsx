@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
     }
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/adminlogin`, {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/adminlogin`, {
         username,
         password,
       });

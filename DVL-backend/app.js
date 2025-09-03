@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Mount API router
-app.use("/", ApiRouter);
+app.use("/api", ApiRouter);
 app.use("/images/uploads", express.static(path.join(__dirname, "images/uploads")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 

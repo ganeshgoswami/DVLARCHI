@@ -8,7 +8,7 @@ const ArchitectureType = () => {
   console.log(architecturetype)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-console.log(data)
+console.log(process.env.REACT_APP_API_URL)
   useEffect(() => {
   
 
@@ -16,8 +16,9 @@ console.log(data)
   }, [architecturetype]);
 
     const fetchCategoryData = async () => {
+      
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/architecturecategory/${architecturetype}`);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/architecturecategory/${architecturetype}`);
         if (response.data.statusCode === 200) {
           setData(response.data.data);
         } else {

@@ -24,7 +24,7 @@ const GetBlogs = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/deleteblog/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/deleteblog/${id}`);
       fetchData();
     } catch (error) {
       console.error("Delete error:", error);
@@ -33,7 +33,7 @@ const GetBlogs = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/getBlogs`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/getBlogs`);
       setBlogs(res.data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -68,7 +68,7 @@ const GetBlogs = () => {
       }
 
       await axios.patch(
-        `${process.env.REACT_APP_API_URL}/updateBlog/${editingItem._id}`,
+        `${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/updateBlog/${editingItem._id}`,
         updatedData,
         {
           headers: { "Content-Type": "multipart/form-data" },

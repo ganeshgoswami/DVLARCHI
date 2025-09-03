@@ -32,7 +32,7 @@ const ViewArchitectureList = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/getArchitectures`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/getArchitectures`);
       setArchitectureData(res.data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -48,7 +48,7 @@ const ViewArchitectureList = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/deletearchitecturedata/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/deletearchitecturedata/${id}`);
       fetchData();
     } catch (error) {
       console.error("Delete error:", error);
@@ -105,7 +105,7 @@ const ViewArchitectureList = () => {
       }
 
       const response = await axios.patch(
-        `${process.env.REACT_APP_API_URL}/updateArchitecturedata/${editingItem._id}`,
+        `${process.env.REACT_APP_API_URL || 'https://dvlarchitects.com/api'}/updateArchitecturedata/${editingItem._id}`,
         updatedData,
         {
           headers: { "Content-Type": "multipart/form-data" },
