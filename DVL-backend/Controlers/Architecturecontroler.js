@@ -106,10 +106,9 @@ exports.updateArchitecture = async (req, res) => {
 
 exports.architecturecategory = async (req, res) => {
   try {
-    let { architecureType } = req.params; // URL param
+    let { architecturetype } = req.params; // URL param
 
-    if (!architecureType) {
-      // ✅ same variable name
+    if (!architecturetype) {
       return res.status(400).json({
         statusCode: 400,
         message: "Type Architecture is required.",
@@ -117,19 +116,19 @@ exports.architecturecategory = async (req, res) => {
     }
 
     const findarchitecturedata = await Architecturelist.find({
-      formType: architecureType,
+      formType: architecturetype,
     }).sort({ createdAt: -1 });
 
     if (!findarchitecturedata.length) {
       return res.status(404).json({
         statusCode: 404,
-        message: `No Data Found In Category: ${architecureType}`, // ✅ fixed variable
+        message: `No Data Found In Category: ${architecturetype}`,
       });
     }
 
     res.status(200).json({
       statusCode: 200,
-      message: `Data Found In Category: ${architecureType}`, // ✅ fixed variable
+      message: `Data Found In Category: ${architecturetype}`,
       data: findarchitecturedata,
     });
   } catch (err) {

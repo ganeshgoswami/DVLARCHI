@@ -52,7 +52,7 @@ const AddArchitectureData = () => {
   });
 
   try {
-    await axios.post("http://localhost:5000/architecturedata", data, {
+    await axios.post(`${process.env.REACT_APP_API_URL}/architecturedata`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     

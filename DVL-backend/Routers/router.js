@@ -63,7 +63,7 @@ router.patch("/updateBlog/:id", upload.single("image"), async (req, res) => {
 
 // ================= ARCHITECTURE =================
 router.get("/getArchitectures", architecturecontroller.getArchitectures);
-router.get("/architecturecategory/:architecureType", architecturecontroller.architecturecategory);
+router.get("/architecturecategory/:architecturetype", architecturecontroller.architecturecategory);
 router.get("/architectureSearchId/:id", architecturecontroller.architectureSearchId);
 router.delete("/deletearchitecturedata/:id", architecturecontroller.deletearchitecturedata);
 

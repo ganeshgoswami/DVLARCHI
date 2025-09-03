@@ -7,7 +7,7 @@ const Blogs = () => {
   // Fetch blog data
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/getBlogs"); // change to your API
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/getBlogs`);
       setBlogs(res.data);
     } catch (err) {
       console.error("Error fetching blogs:", err);

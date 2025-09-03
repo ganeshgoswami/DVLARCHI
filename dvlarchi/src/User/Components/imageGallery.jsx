@@ -13,7 +13,7 @@ const ImageGallery = () => {
 
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/architectureSearchId/${id}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/architectureSearchId/${id}`);
       setImageGallery(res.data.data);
     } catch (err) {
       console.error("Error fetching architecture:", err);

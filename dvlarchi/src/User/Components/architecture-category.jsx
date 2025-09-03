@@ -17,7 +17,7 @@ console.log(data)
 
     const fetchCategoryData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/architecturecategory/${architecturetype}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/architecturecategory/${architecturetype}`);
         if (response.data.statusCode === 200) {
           setData(response.data.data);
         } else {

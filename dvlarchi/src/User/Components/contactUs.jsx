@@ -22,7 +22,7 @@ const handleSubmit = async (e) => {
   setLoading(true);
   try {
     const response = await axios.post(
-      "http://localhost:5000/contact",
+      `${process.env.REACT_APP_API_URL}/contact`,
       formData,
       {
         headers: { "Content-Type": "application/json" }

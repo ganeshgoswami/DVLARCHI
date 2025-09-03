@@ -32,7 +32,7 @@ const ViewArchitectureList = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/getArchitectures");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/getArchitectures`);
       setArchitectureData(res.data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -48,7 +48,7 @@ const ViewArchitectureList = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:5000/deletearchitecturedata/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/deletearchitecturedata/${id}`);
       fetchData();
     } catch (error) {
       console.error("Delete error:", error);
@@ -105,7 +105,7 @@ const ViewArchitectureList = () => {
       }
 
       const response = await axios.patch(
-        `http://localhost:5000/updateArchitecturedata/${editingItem._id}`,
+        `${process.env.REACT_APP_API_URL}/updateArchitecturedata/${editingItem._id}`,
         updatedData,
         {
           headers: { "Content-Type": "multipart/form-data" },
